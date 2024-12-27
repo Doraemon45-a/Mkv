@@ -31,7 +31,7 @@ jobs:
 
     - name: Convert MKV to MP4
       run: |
-        ffmpeg -i video.mkv -vf "scale=-1:1080" -r 24 -c:v libx264 -preset fast -crf 23 -c:a copy -c:s mov_text -movflags +faststart Murder.Coffee.and.Jessica.Wongso.2023.1080p.mp4
+        ffmpeg -i video.mkv -vf "scale=-1:1080" -r 24 -c:v libx264 -preset fast -crf 23 -c:a copy -c:s mov_text -movflags +faststart video.mp4
 
     - name: Upload to Google Drive
       run: python3 upload_to_gdrive.py video.mp4
