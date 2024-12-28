@@ -27,7 +27,7 @@ jobs:
 
     - name: Download MKV file
       run: |
-        curl -L -o video.mkv "https://tipistream.tipikuy.workers.dev/0:/series/s.gameb/Squid.Game.S02E06.O.X.1080p.NF.WEB-DL.DUAL.DDP5.1.Atmos.DV.HDR.H.265-APEX.mkv"
+        curl -L -o video.mkv "https://tipistream.tipikuy.workers.dev/0:/series/s.gameb/Squid.Game.S02E07.Friend.or.Foe.1080p.NF.WEB-DL.DUAL.DDP5.1.Atmos.DV.HDR.H.265-APEX.mkv"
 
     - name: Convert MKV to MP4
       run: |
