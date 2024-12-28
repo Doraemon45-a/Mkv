@@ -31,7 +31,7 @@ jobs:
 
     - name: Convert MKV to MP4
       run: |
-        ffmpeg -i video.mkv -vf "scale=-1:720,subtitles=video.mkv:si=24" -r 30 -c:v libx264 -preset veryfast -crf 24 -c:a aac -b:a 128k -movflags +faststart video.mp4
+        ffmpeg -i video.mkv -vf "scale=-1:720,subtitles=video.mkv:si=24" -r 24 -c:v libx264 -preset veryfast -crf 23 -c:a aac -b:a 128k -movflags +faststart video.mp4
 
 
     - name: Upload to Google Drive
