@@ -27,11 +27,12 @@ jobs:
 
     - name: Download MKV file
       run: |
-        curl -L -o video.mkv "https://tipistream.tipikuy.workers.dev/0:/series/s.gameb/Squid.Game.S02E02.Halloween.Party.1080p.NF.WEB-DL.DUAL.DDP5.1.Atmos.DV.HDR.H.265-APEX.mkv"
+        curl -L -o video.mkv "https://tipistream.tipikuy.workers.dev/0:/series/s.gameb/Squid.Game.S02E01.Bread.and.Lottery.1080p.NF.WEB-DL.DUAL.DDP5.1.Atmos.DV.HDR.H.265-APEX.mkv"
 
     - name: Convert MKV to MP4
       run: |
-        ffmpeg -i video.mkv -vf "scale=-1:720,subtitles=video.mkv:si=24" -r 30 -c:v libx264 -preset veryfast -crf 24 -c:a copy -movflags +faststart video.mp4
+        ffmpeg -i video.mkv -vf "scale=-1:720,subtitles=video.mkv:si=24" -r 30 -c:v libx264 -preset veryfast -crf 24 -c:a aac -b:a 128k -movflags +faststart video.mp4
+
 
     - name: Upload to Google Drive
       run: python3 upload_to_gdrive.py video.mp4
