@@ -27,7 +27,7 @@ jobs:
 
     - name: Download MKV file
       run: |
-        curl -L -o video.mkv "https://tipistream.tipikuy.workers.dev/0:/Suzzanna.The.Queen.of.Black.Magic.2024.1080p.BluRay.x264.AAC2.0-Pahe.in.mkv"
+        curl -L -o video.mkv "https://sxtcp.tg-index.workers.dev/0:/The.Queen.of.Black.Magic.1981.720p.NF.WEB-DL.x264.750MB-Pahe.in.mkv"
 
     - name: Convert MKV to MP4
       run: |
