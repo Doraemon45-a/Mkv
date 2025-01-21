@@ -11,35 +11,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Set up dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg
-          python3 -m pip install --upgrade pip
-          python3 -m pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client
+    - name: Set up dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ffmpeg
+        python3 -m pip install --upgrade pip
+        python3 -m pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client
 
-      - name: Create token.pickle
-        run: |
-          echo "${{ secrets.GDRIVE_TOKEN }}" | base64 --decode > token.pickle
+    - name: Create token.pickle
+      run: |
+        echo "${{ secrets.GDRIVE_TOKEN }}" | base64 --decode > token.pickle
 
-      - name: Download MKV file
-        run: |
-          curl -L -o video.mkv "https://tipistream.tipikuy.workers.dev/0:/GDFlix/Son%CE%B9c.The.Hedgehog.3.2024.1080p.WEB-DL.x265.6CH-Pahe.in.mkv"
+    - name: Download MKV file
+      run: |
+        curl -L -o video.mkv "https://tipistream.tipikuy.workers.dev/0:/GDFlix/Son%CE%B9c.The.Hedgehog.3.2024.1080p.WEB-DL.x265.6CH-Pahe.in.mkv"
 
-      - name: Download Subtitle file
-        run: |
-          curl -L -o subtitle.srt "https://str.tipiku.my.id/hardsub/movie/Sonic.The.Hedgehog.3.2024.srt"
+    - name: Download Subtitle file
+      run: |
+        curl -L -o subtitle.srt "https://str.tipiku.my.id/hardsub/movie/Sonic.The.Hedgehog.3.2024.srt"
 
-      - name: Adjust Subtitle Timing
-        run: |
-          ffmpeg -itsoffset 24.8 -i subtitle.srt -map 0 -c copy adjusted_subtitle.srt
+    - name: Convert MKV to MP4
+      run: |
+        ffmpeg -i video.mkv -vf "scale=1920:1080,subtitles=subtitle.srt" -r 24 -c:v libx264 -preset veryfast -crf 22 -c:a aac -b:a 160k -ac 2 -af "volume=3.0" -movflags +faststart video.mp4
 
-      - name: Convert MKV to MP4
-        run: |
-          ffmpeg -i video.mkv -vf "scale=1920:1080,subtitles=adjusted_subtitle.srt" -r 24 -c:v libx264 -preset veryfast -crf 22 -c:a aac -b:a 160k -ac 2 -af "volume=2.0" -movflags +faststart video.mp4
-
-      - name: Upload to Google Drive
-        run: python3 upload_to_gdrive.py video.mp4
+    - name: Upload to Google Drive
+      run: python3 upload_to_gdrive.py video.mp4
