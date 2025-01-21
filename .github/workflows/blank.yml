@@ -35,7 +35,7 @@ jobs:
 
       - name: Adjust Subtitle Timing
         run: |
-          ffmpeg -i subtitle.srt -itsoffset 24.8 -c copy adjusted_subtitle.srt
+          ffmpeg -itsoffset 24.8 -i subtitle.srt -map 0 -c copy adjusted_subtitle.srt
 
       - name: Convert MKV to MP4
         run: |
