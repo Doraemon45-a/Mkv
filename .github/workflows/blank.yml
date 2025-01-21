@@ -35,11 +35,11 @@ jobs:
 
       - name: Adjust Subtitle Timing
         run: |
-          ffmpeg -i subtitle.srt -f srt -scodec mov_text -filter_complex "subtitles=subtitle.srt:force_style='Delay=24.800'" fast_subtitle.srt
+          ffmpeg -i subtitle.srt -itsoffset 24.8 -c copy adjusted_subtitle.srt
 
       - name: Convert MKV to MP4
         run: |
-          ffmpeg -i video.mkv -vf "scale=1920:1080,subtitles=fast_subtitle.srt" -r 24 -c:v libx264 -preset veryfast -crf 22 -c:a aac -b:a 160k -ac 2 -af "volume=2.0" -movflags +faststart video.mp4
+          ffmpeg -i video.mkv -vf "scale=1920:1080,subtitles=adjusted_subtitle.srt" -r 24 -c:v libx264 -preset veryfast -crf 22 -c:a aac -b:a 160k -ac 2 -af "volume=2.0" -movflags +faststart video.mp4
 
       - name: Upload to Google Drive
         run: python3 upload_to_gdrive.py video.mp4
